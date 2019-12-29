@@ -10,7 +10,7 @@ Users can comment on ideas
 Ideas can be seen in realtime
 
 # Stack
-Database - PostgreSQL
+Database - MySql
 REST API - NestJS
 GraphQL API - NestJS
 Rest Frontend - Angular with NGRX
