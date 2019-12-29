@@ -1,12 +1,14 @@
+import { IdeaModule } from './idea/idea.module';
 import { Module } from '@nestjs/common';
 
 import { TypeOrmModule} from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { Idea } from './entity/idea.entity';
+import { Idea } from './idea/idea.entity';
 
 @Module({
-  imports: [TypeOrmModule.forRoot(
+  imports: [
+        IdeaModule, TypeOrmModule.forRoot(
     {
       type: 'mysql',
       host: 'localhost',
