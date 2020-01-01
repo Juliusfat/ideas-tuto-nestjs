@@ -5,6 +5,9 @@ import { TypeOrmModule} from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { Idea } from './idea/idea.entity';
+import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
+import { HttpErrorFilter } from './shared/http_error.filter';
+import { LoggingInterceptor } from './shared/logging.interceptor';
 
 @Module({
   imports: [
@@ -17,11 +20,18 @@ import { Idea } from './idea/idea.entity';
       password: process.env.DB_PASSWORD,
       database: process.env.DATABASE,
       entities: [Idea],
-      synchronize: true,
-      logging: true
+      synchronize: true
     }
   )],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, 
+    {
+      provide: APP_FILTER,
+      useClass: HttpErrorFilter
+    },
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: LoggingInterceptor
+    }],
 })
 export class AppModule {}
