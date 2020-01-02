@@ -3,6 +3,7 @@ import { IdeaService } from './idea.service';
 import { IdeaDTO } from './idea.dto';
 import { ValidationPipe } from '../shared/validation.pipe';
 import { AuthGuard } from 'src/shared/auth.guard';
+import { User } from 'src/user/user.decorator';
 
 @Controller('api/ideas')
 export class IdeaController {
@@ -10,15 +11,15 @@ export class IdeaController {
     constructor(private ideaSevice: IdeaService) { }
 
     @Get()
-    @UseGuards(new AuthGuard())
     showAllIdeas() {
         return this.ideaSevice.showAll();
     }
 
     @Post()
+    @UseGuards(new AuthGuard())
     @UsePipes( new ValidationPipe())
-    createIdea(@Body() data: IdeaDTO) {
-        return this.ideaSevice.create(data);
+    createIdea(@User('id') userId, @Body() data: IdeaDTO) {
+        return this.ideaSevice.create(userId, data);
     }
 
     @Get(':id')
@@ -27,14 +28,16 @@ export class IdeaController {
     }
 
     @Put(':id')
+    @UseGuards(new AuthGuard())
     @UsePipes( new ValidationPipe())
-    updateId(@Param('id') id: number, @Body() data: Partial<IdeaDTO>) {
-        return this.ideaSevice.update(id, data);
+    updateId(@Param('id') id: number, @User('id') userId, @Body() data: Partial<IdeaDTO>) {
+        return this.ideaSevice.update(id, userId, data);
      }
 
     @Delete(':id')
-    removeId(@Param('id') id: number) { 
-        return this.ideaSevice.destroy(id);
+    @UseGuards(new AuthGuard())
+    removeId(@Param('id') id: number, @User('id') userId) { 
+        return this.ideaSevice.destroy(id, userId);
     }
 
 }
