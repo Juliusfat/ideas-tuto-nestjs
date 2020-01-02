@@ -1,3 +1,4 @@
+import { UserModule } from './user/user.module';
 import { IdeaModule } from './idea/idea.module';
 import { Module } from '@nestjs/common';
 
@@ -8,9 +9,11 @@ import { Idea } from './idea/idea.entity';
 import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
 import { HttpErrorFilter } from './shared/http_error.filter';
 import { LoggingInterceptor } from './shared/logging.interceptor';
+import { User } from './user/user.entity';
 
 @Module({
   imports: [
+        UserModule, 
         IdeaModule, TypeOrmModule.forRoot(
     {
       type: 'mysql',
@@ -19,7 +22,7 @@ import { LoggingInterceptor } from './shared/logging.interceptor';
       username: process.env.DB_USER,
       password: process.env.DB_PASSWORD,
       database: process.env.DATABASE,
-      entities: [Idea],
+      entities: [Idea, User],
       synchronize: true
     }
   )],
