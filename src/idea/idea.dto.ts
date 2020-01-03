@@ -17,4 +17,6 @@ export class IdeaRO {
     created: Date;
     update: Date;
     author: UserRO;
+    upvotes?: number;
+    downvotes?: number;
 }

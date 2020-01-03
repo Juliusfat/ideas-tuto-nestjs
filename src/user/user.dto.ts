@@ -14,5 +14,6 @@ export interface UserRO {
     username: string;
     created: Date;
     token?: string;
-    ideas?: Idea[]
+    ideas?: Idea[];
+    bookmarks?: Idea[];
 }
