@@ -3,7 +3,7 @@ import { UserService } from './user.service';
 import { UserDto } from './user.dto';
 import { ValidationPipe } from 'src/shared/validation.pipe';
 import { AuthGuard } from 'src/shared/auth.guard';
-import { User } from './user.decorator';
+import { UserDecorator } from './user.decorator';
 
 @Controller()
 export class UserController {

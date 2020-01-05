@@ -1,3 +1,4 @@
+import { CommentModule } from './comment/comment.module';
 import { UserModule } from './user/user.module';
 import { IdeaModule } from './idea/idea.module';
 import { Module } from '@nestjs/common';
@@ -10,9 +11,11 @@ import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
 import { HttpErrorFilter } from './shared/http_error.filter';
 import { LoggingInterceptor } from './shared/logging.interceptor';
 import { User } from './user/user.entity';
+import { Comment } from './comment/comment.entity';
 
 @Module({
   imports: [
+        CommentModule, 
         UserModule, 
         IdeaModule, TypeOrmModule.forRoot(
     {
@@ -22,7 +25,7 @@ import { User } from './user/user.entity';
       username: process.env.DB_USER,
       password: process.env.DB_PASSWORD,
       database: process.env.DATABASE,
-      entities: [Idea, User],
+      entities: [Idea, User, Comment],
       synchronize: true
     }
   )],
