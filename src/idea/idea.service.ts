@@ -17,7 +17,7 @@ export class IdeaService {
     ) { }
 
     private toResponseObject(idea: Idea): IdeaRO {
-        const responseObject: any = { ...idea, author: idea.author.toResponseObject() }
+        const responseObject: any = { ...idea, author: idea.author.toResponseObject(false) }
         if (idea.upvotes) {
             responseObject.upvotes = idea.upvotes.length;
         }
@@ -52,13 +52,18 @@ export class IdeaService {
         return idea;
     }
 
-    async showAll(): Promise<IdeaRO[]> {
-        const ideas = await this.ideaRepository.find({ relations: ['author', 'upvotes', 'downvotes','comments'] });
+    async showAll(page: number = 1, take: number = 10, newest?: boolean): Promise<IdeaRO[]> {
+        const ideas = await this.ideaRepository.find({ 
+            relations: ['author', 'upvotes', 'downvotes','comments'],
+            take: take,
+            skip: take * (page -1),
+            order: newest && { created: 'DESC'}
+        });
         return ideas.map(idea => this.toResponseObject(idea));
     }
 
     async create(userId: number, data: IdeaDTO): Promise<IdeaRO> {
-        const user = await this.userRepository.findOne({ where: { userId } })
+        const user = await this.userRepository.findOne({ where: { id : userId } });
         const idea = this.ideaRepository.create({ ...data, author: user });
         await this.ideaRepository.save(idea);
         return this.toResponseObject(idea);

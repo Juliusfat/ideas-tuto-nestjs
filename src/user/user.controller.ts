@@ -1,4 +1,4 @@
-import { Controller, Post, Get, Body, UsePipes, UseGuards } from '@nestjs/common';
+import { Controller, Post, Get, Body, UsePipes, UseGuards, Query } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UserDto } from './user.dto';
 import { ValidationPipe } from 'src/shared/validation.pipe';
@@ -12,8 +12,8 @@ export class UserController {
     }
 
     @Get('api/users')
-    showAllUsers() {
-        return this.userService.showAll();
+    showAllUsers(@Query('page') page: number, @Query('take') take: number ) {
+        return this.userService.showAll(page, take);
     }
 
     @Post('login')
