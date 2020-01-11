@@ -22,12 +22,16 @@
   "dependencies": {
     "@nestjs/common": "^6.7.2",
     "@nestjs/core": "^6.7.2",
+    "@nestjs/graphql": "^6.5.3",
     "@nestjs/platform-express": "^6.7.2",
     "@nestjs/typeorm": "^6.2.0",
+    "apollo-server-express": "^2.9.16",
     "bcryptjs": "^2.4.3",
     "class-transformer": "^0.2.3",
     "class-validator": "^0.11.0",
     "dotenv": "^8.2.0",
+    "graphql": "^14.5.8",
+    "graphql-tools": "^4.0.6",
     "jsonwebtoken": "^8.5.1",
     "mysql2": "^2.1.0",
     "reflect-metadata": "^0.1.13",
@@ -36,7 +40,7 @@
     "typeorm": "^0.2.22"
   },
   "devDependencies": {
-    "@nestjs/cli": "^6.9.0",
+    "@nestjs/cli": "^6.13.3",
     "@nestjs/schematics": "^6.7.0",
     "@nestjs/testing": "^6.7.1",
     "@types/bcryptjs": "^2.4.2",
