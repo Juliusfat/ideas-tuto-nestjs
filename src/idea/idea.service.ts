@@ -130,7 +130,6 @@ export class IdeaService {
 
         if (user.bookmarks.filter(bookmark => bookmark.id === idea.id).length < 1) {
             user.bookmarks.push(idea);
-            console.log(idea);
             await this.userRepository.save(user);
         } else {
             throw new HttpException(

@@ -27,6 +27,14 @@ export class UserService {
         }
         return user.toResponseObject();
     }
+
+    async read(username: string) {
+        const user = await this.userRepository.findOne({
+          where: { username },
+          relations: ['ideas', 'bookmarks'],
+        });
+        return user.toResponseObject(false);
+      }
     
     async register(data: UserDto): Promise<UserRO> {
         const {username} = data;
